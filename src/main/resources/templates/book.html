@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Книга у читателя</title>
+</head>
+<body>
+    <h2>Пользователь с id: <span th:text="${readerId}"></span>
+        и именем <span th:text="${readerName}"></span> </h2>
+    <h2>не вернул книгу с id: <span th:text="${bookId}"></span>
+         и названием: <span th:text="${bookName}"></span> </h2>
+</body>
+</html>

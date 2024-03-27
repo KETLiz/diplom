@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Реестр выдачей</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Id книги</th>
+            <th>Id читателя</th>
+            <th>Когда взял</th>
+            <th>Когда вернул</th>
+        </tr>
+        <tr th:each="issue : ${issuesList}">
+            <td th:text="${issue.getIdBook}"></td>
+            <td th:text="${issue.getIdReader()}"></td>
+            <td th:text="${issue.getIssuedAt()}"></td>
+            <td th:text="${issue.getReturnedAt()}"></td>
+        </tr>
+    </table>
+</body>
+</html>
