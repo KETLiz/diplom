@@ -11,6 +11,6 @@ public class Main {
     //    r.URLReader(new URL("http://localhost:8080/v3/api-docs"));
         String res = r.URLReader(new URL("http://localhost:8080/v3/api-docs"));
         r.writeToFile(res);
-        r.printJsonString(res, "   ");
+        r.printJsonString(res, true);
     }
 }

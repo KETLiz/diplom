@@ -46,46 +46,62 @@ public class ReadFromApiDocs {
         }
     }
 
-    public void printJsonString(String result, String indent) {
+    public void printJsonString(String result, boolean wasChar) {
         String oneLine = null;
-        int startIndex = 0;
-        int endIndex = 0;
-        boolean wasChar = true;
+        String indentString = null;
+//        int startIndex = 0;
+//        int endIndex = 0;
+        //boolean wasChar = true;
 
         for(int i = 0; i < result.length(); i++) {
             if(i == result.length() - 1) {
-                oneLine = result.substring(startIndex);
+                oneLine = result;
                 System.out.println(oneLine);
             }
             if(result.charAt(i) == ',') {
-                endIndex = i;
-                oneLine = result.substring(0, endIndex+1);
+                //endIndex = i;
+                oneLine = result.substring(0, i+1);
 
                 System.out.println(oneLine);
                 if(!wasChar) {
-                    System.out.print(indent);
+                    System.out.print(indentString);
                 }
-                result = result.substring(endIndex+1);
+                result = result.substring(i+1);
                 i = 0;
             }
-            if(result.charAt(i) == ':') {
+             if(result.charAt(i) == ':') {
                 if(result.charAt(i+1) == '{') {
+
                     wasChar = false;
                     i++;
-                    endIndex = i;
-                    //indent = indent+indent;
-                    oneLine = result.substring(0, endIndex+1);
+                    //endIndex = i;
+                    oneLine = result.substring(0, i+1);
+                    indentString = indentString(oneLine);
                     System.out.println(oneLine);
-                    System.out.print(indent);
-                    result = result.substring(endIndex+1);
+                    System.out.print(indentString);
+                    result = result.substring(i+1);
                     i = 0;
+                }
+            }
+            if(!wasChar) {
+                if(result.charAt(i) == ':') {
+                    if(result.charAt(i+1) == '{') {
+                        System.out.println("Я сюда не попадаю((( Почему???");
+                        System.out.println("Здесь должна была быть рекурсия...");
+                    }
                 }
             }
             if(result.charAt(i) == '}') {
                 wasChar = true;
+                //indent = "   ";
                 //System.out.print(indent);
             }
         }
 
     }
+
+    private String indentString(String oneLine) {
+        return " ".repeat(oneLine.length());
+    }
+
 }
