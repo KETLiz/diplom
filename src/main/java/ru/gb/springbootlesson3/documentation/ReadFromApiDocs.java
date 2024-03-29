@@ -16,12 +16,10 @@ import java.util.Arrays;
 
 public class ReadFromApiDocs {
 
-    //URL url = new URL("http://localhost:8080/v3/api-docs");
-
     public ReadFromApiDocs() throws MalformedURLException {
     }
 
-    public void URLReader(URL url) throws IOException, ParseException {
+    public String URLReader(URL url) throws IOException, ParseException {
 
         String line;
         StringBuilder sb = new StringBuilder();
@@ -33,61 +31,61 @@ public class ReadFromApiDocs {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //System.out.println(sb.toString());
-        String result = sb.toString();
-        //System.out.println(result);
-        StringBuilder n = new StringBuilder();
-        char c = ',';
-        int i = 0;
-        int startIndex = 0;
-        String oneString = null;
-        while(i < result.length()) {
-            if(result.charAt(i) == c) {
-                int endIndex = i+1;
-                oneString = result.substring(startIndex, endIndex);
-                n.append(oneString);
-                n.append("\n");
-                //i++;
-                startIndex = endIndex;
-            }
-            i++;
-            if(i == result.length()-1) {
-                oneString = result.substring(startIndex);
-                n.append(oneString);
-            }
-        }
-        System.out.println(n.toString());
-//        JSONObject jsonObj = (JSONObject) JSONValue.parseWithException(sb.toString());
-//        System.out.println(jsonObj);
+        return sb.toString();
+    }
 
-//        ObjectMapper mapper = new ObjectMapper();
-//        String prettyJsonString = mapper.writerWithDefaultPrettyPrinter()
-//                .writeValueAsString(sb.toString());
-//        System.out.println(prettyJsonString);
-
-//        StringBuilder sb = new StringBuilder();
-//        String line;
-//
-//        InputStream in = url.openStream();
-//        try {
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-//            while ((line = reader.readLine()) != null) {
-//                sb.append(line).append(System.lineSeparator());
-//            }
-//        } finally {
-//            in.close();
-//        }
-
-        //System.out.println(sb.toString());
+    public void writeToFile(String result) {
         String outputFileName = "C:/Users/Саша/IdeaProjects/spring-boot-lesson-3/src/" +
                 "main/java/ru/gb/springbootlesson3/documentation/file.txt";
 
         try (BufferedWriter writter = new BufferedWriter(new FileWriter(outputFileName))) {
-            writter.write(n.toString());
+            writter.write(result);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void printJsonString(String result, String indent) {
+        String oneLine = null;
+        int startIndex = 0;
+        int endIndex = 0;
+        boolean wasChar = true;
+
+        for(int i = 0; i < result.length(); i++) {
+            if(i == result.length() - 1) {
+                oneLine = result.substring(startIndex);
+                System.out.println(oneLine);
+            }
+            if(result.charAt(i) == ',') {
+                endIndex = i;
+                oneLine = result.substring(0, endIndex+1);
+
+                System.out.println(oneLine);
+                if(!wasChar) {
+                    System.out.print(indent);
+                }
+                result = result.substring(endIndex+1);
+                i = 0;
+            }
+            if(result.charAt(i) == ':') {
+                if(result.charAt(i+1) == '{') {
+                    wasChar = false;
+                    i++;
+                    endIndex = i;
+                    //indent = indent+indent;
+                    oneLine = result.substring(0, endIndex+1);
+                    System.out.println(oneLine);
+                    System.out.print(indent);
+                    result = result.substring(endIndex+1);
+                    i = 0;
+                }
+            }
+            if(result.charAt(i) == '}') {
+                wasChar = true;
+                //System.out.print(indent);
+            }
+        }
+
+    }
 }
