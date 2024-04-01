@@ -14,6 +14,10 @@ public class Reader {
     private long id;
     @Column
     private String name;
+    @Column
+    private String password;
+    @Column
+    private String role;
 
     public Reader(String name) {
         this.name = name;
