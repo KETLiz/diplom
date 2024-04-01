@@ -1,14 +1,21 @@
 spring:
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/master
+
   application:
     name: spring-boot-lesson-3
-    issue:
-      max-allowed-books: 3
-  datasource:
-    url: jdbc:h2:mem:test
-    username: li
-    password:
-    driver-class-name: org.h2.Driver
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
+
+datasource:
+  url: jdbc:h2:mem:test
+  username: li
+  password:
+  driver-class-name: org.h2.Driver
+jpa:
+  show-sql: true
+  hibernate:
+   ddl-auto: create-drop
+server:
+  port: 8081
