@@ -25,8 +25,8 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 @Service
 public class IssueService {
-//    @Value("${spring.application.issue.max-allowed-books}")
-//    private int maxBookCount;
+    @Value("${application.issue.max-allowed-books}")
+    private int maxBookCount;
 
     private final BookRepository bookRepository;
     private final IssueRepository issueRepository;
@@ -56,7 +56,7 @@ public class IssueService {
                 issuesByReaderFromRequest.add(i);
             }
         }
-        return issuesByReaderFromRequest.size() < 3;
+        return issuesByReaderFromRequest.size() < maxBookCount;
     }
 
     public List<Issue> allIssuesByReaderIdBookOnHands(long readerId) {
