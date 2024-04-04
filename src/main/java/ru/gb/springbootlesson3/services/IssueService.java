@@ -8,6 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import ru.gb.springbootlesson3.annotation.Timer;
 import ru.gb.springbootlesson3.controllers.restControllers.IssueRequest;
 import ru.gb.springbootlesson3.entity.Book;
 import ru.gb.springbootlesson3.entity.Issue;
@@ -17,6 +18,7 @@ import ru.gb.springbootlesson3.repository.IssueRepository;
 import ru.gb.springbootlesson3.repository.ReaderRepository;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -40,6 +42,7 @@ public class IssueService {
         return issueRepository.findById(id).orElseThrow();
     }
 
+    @Timer
     public Issue createNewIssue(IssueRequest request) {
         if(readerHaveBooksLessThanThree(request)) {
             return issueRepository.save(new Issue(request.getReaderId(), request.getBookId()));
