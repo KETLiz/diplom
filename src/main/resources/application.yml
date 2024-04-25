@@ -6,7 +6,7 @@ spring:
           issuer-uri: http://localhost:8080/realms/master
 
   application:
-    name: spring-boot-lesson-3
+    name: diplom
 
 application:
   issue:

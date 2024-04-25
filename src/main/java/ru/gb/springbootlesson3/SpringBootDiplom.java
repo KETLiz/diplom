@@ -6,10 +6,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import ru.gb.springbootlesson3.demo.SecondBean;
 
 @SpringBootApplication
-public class SpringBootLesson3Application {
+public class SpringBootDiplom {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context = SpringApplication.run(SpringBootLesson3Application.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(SpringBootDiplom.class, args);
 
 		context.getBean(SecondBean.class).postConstruct();
 
